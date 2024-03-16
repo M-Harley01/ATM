@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -6,9 +12,44 @@ namespace assignment3
 {
     public partial class Form1 : Form
     {
+
+        Label atmScreen = new Label();
+
+        Button[,] keyPad = new Button[4, 4];
+
+
         public Form1()
         {
             InitializeComponent();
+
+            atmScreen.Location = new Point(250, 100);
+            atmScreen.BackColor = Color.Green;
+            atmScreen.Width = 250;
+            atmScreen.Height = 70;
+            this.Controls.Add(atmScreen);
+
+            string[,] buttonLabels = {
+                { "1", "2", "3", "Cancel" },
+                { "4", "5", "6", "Clear" },
+                { "7", "8", "9", "Enter" },
+                { "*", "0", "#", "D" }
+            };
+
+            for (int i = 0; i < keyPad.GetLength(0); i++)
+            {
+                for (int j = 0; j < keyPad.GetLength(1); j++)
+                {
+                    keyPad[i, j] = new Button();
+                    keyPad[i, j].FlatStyle = FlatStyle.Flat;
+                    keyPad[i, j].FlatAppearance.BorderColor = Color.Gray;
+                    keyPad[i, j].SetBounds(275 + (50 * i), 200 + (50 * j), 50, 50);
+                    keyPad[i, j].BackColor = Color.Gray;
+                    keyPad[i, j].ForeColor = Color.Black;
+                    keyPad[i, j].Text = buttonLabels[j, i];
+                    keyPad[i, j].Click += new EventHandler(this.KeyPadButtonClick);
+                    this.Controls.Add(keyPad[i, j]);
+                }
+            }
 
             Account[] ac = new Account[3];
             ATM atm;
@@ -17,14 +58,43 @@ namespace assignment3
             ac[1] = new Account(750, 2222, 222222);
             ac[2] = new Account(3000, 3333, 333333);
 
-            atm = new ATM(ac);
+            //atm = new ATM(ac, atmScreen);
+        }
+
+
+
+        private void KeyPadButtonClick(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+
+            if (clickedButton.Text == "Enter")
+            {
+
+            }
+            else if (clickedButton.Text == "Cancel")
+            {
+                if (atmScreen.Text.Length > 0)
+                {
+                    atmScreen.Text = atmScreen.Text.Substring(0, atmScreen.Text.Length - 1);
+                }
+            }
+            else if (clickedButton.Text == "Clear")
+            {
+                atmScreen.Text = "";
+            }
+            else
+            {
+                atmScreen.Text += clickedButton.Text;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
         }
     }
+
 
     class Account
     {
@@ -84,11 +154,14 @@ namespace assignment3
     {
         private Account[] ac;
         private Account activeAccount = null;
+        private Label atmScreen;
 
-        public ATM(Account[] ac)
+        public ATM(Account[] ac, Label atmScreen)
         {
             this.ac = ac;
-            Console.WriteLine("hello from ATM");
+            this.atmScreen = atmScreen;
+            updateScreen("Hello from ATM");
+
 
             // an infanite loop to keep the flow of controll going on and on
             while (true)
@@ -108,19 +181,23 @@ namespace assignment3
                 }
                 else
                 {   //if the account number entered is not found let the user know!
-                    Console.WriteLine("no matching account found.");
+                    updateScreen("no matching account found.");
                 }
 
                 //wipes all text from the console
-                Console.Clear();
+                updateScreen("");
             }
 
+        }
 
+        private void updateScreen(string message)
+        {
+            atmScreen.Text = message;
         }
 
         private Account findAccount()
         {
-            Console.WriteLine("enter your account number..");
+            updateScreen("enter your account number..");
 
             int input = Convert.ToInt32(Console.ReadLine());
 
@@ -145,9 +222,9 @@ namespace assignment3
 
         private void dispOptions()
         {
-            Console.WriteLine("1> take out cash");
-            Console.WriteLine("2> balance");
-            Console.WriteLine("3> exit");
+            updateScreen("1> take out cash");
+            updateScreen("2> balance");
+            updateScreen("3> exit");
 
             int input = Convert.ToInt32(Console.ReadLine());
 
@@ -173,9 +250,9 @@ namespace assignment3
 
         private void dispWithdraw()
         {
-            Console.WriteLine("1> 10");
-            Console.WriteLine("2> 50");
-            Console.WriteLine("3> 500");
+            updateScreen("1> 10");
+            updateScreen("2> 50");
+            updateScreen("3> 500");
 
             int input = Convert.ToInt32(Console.ReadLine());
 
@@ -190,15 +267,15 @@ namespace assignment3
                     if (activeAccount.decrementBalance(10))
                     {
                         //if this is possible display new balance and await key press
-                        Console.WriteLine("new balance " + activeAccount.getBalance());
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("new balance " + activeAccount.getBalance());
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                     else
                     {
                         //if this is not possible inform user and await key press
-                        Console.WriteLine("insufficent funds");
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("insufficent funds");
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                 }
@@ -206,14 +283,14 @@ namespace assignment3
                 {
                     if (activeAccount.decrementBalance(50))
                     {
-                        Console.WriteLine("new balance " + activeAccount.getBalance());
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("new balance " + activeAccount.getBalance());
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("insufficent funds");
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("insufficent funds");
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                 }
@@ -221,14 +298,14 @@ namespace assignment3
                 {
                     if (activeAccount.decrementBalance(500))
                     {
-                        Console.WriteLine("new balance " + activeAccount.getBalance());
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("new balance " + activeAccount.getBalance());
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("insufficent funds");
-                        Console.WriteLine(" (prese enter to continue)");
+                        updateScreen("insufficent funds");
+                        updateScreen(" (prese enter to continue)");
                         Console.ReadLine();
                     }
                 }
@@ -239,11 +316,12 @@ namespace assignment3
         {
             if (this.activeAccount != null)
             {
-                Console.WriteLine(" your current balance is : " + activeAccount.getBalance());
-                Console.WriteLine(" (prese enter to continue)");
+                updateScreen(" your current balance is : " + activeAccount.getBalance());
+                updateScreen(" (prese enter to continue)");
                 Console.ReadLine();
             }
         }
     }
+
 
 }
