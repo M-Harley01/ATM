@@ -1,52 +1,11 @@
-﻿namespace ATMClassLib {
+using System;
+using System.Threading;
 
-    public class BankSystem {
-
-        private Dictionary<int, Account> _accounts;
-
-        public BankSystem() {
-            _accounts = new Dictionary<int, Account>();
-        }
-
-        public void AddAccount(Account account) {
-            try {
-                _accounts.Add(account.Number, account);
-            }
-            catch (ArgumentException e) {
-                Console.WriteLine($"The account with this number({account.Number}) already exists: {e.Message}");
-                throw;
-            }
-        }
-
-        public void AddAccount(int accountNumber, int pin, int balance) {
-            try {
-                Account account = new Account(accountNumber, pin, balance);
-                AddAccount(account);
-            }
-            catch (ArgumentException e) {
-                Console.WriteLine(e.Message);
-                throw;
-            }
-        }
-
-        public Account? GetAccount(int accountNumber) {
-            try {
-                return _accounts[accountNumber];
-            }
-            catch (KeyNotFoundException e) {
-                Console.WriteLine($"[ERROR] Account number {accountNumber} not found: {e.Message}");
-                throw;
-            }
-        }
-
-        public ATM DispatchATM() {
-            return new ATM();
-        }
-    }
-
+namespace assignment3 {
     public class ATM {
 
         public void Withdraw(Account account, int amount) {
+        //the multithreaded implementation of withdrawal with thread locks
 
             //assign a new thred to process the operation
             Thread thread = new Thread(() => {
@@ -73,9 +32,11 @@
         }
 
         public int GetAccountBalance(Account account) {
+        //the multithreaded implementation of account balance with thread locks
 
             Nullable<int> balance = new int();
 
+            //creating a new thread to get the balance
             Thread thread = new Thread(() => {
                 //obtain the account lock
                 lock (account.AccountLock) {
@@ -83,6 +44,7 @@
                 }
             });
 
+            //start the thread and .join() to wait for its completion before returning the value
             thread.Start();
             thread.Join();
             if (!balance.HasValue) {
@@ -92,6 +54,9 @@
         }
 
         public void WithdrawUnlocked(Account account, int amount) {
+        //the multithreaded implementation of withdraing without thread locks
+        //use ONLY for Data Race demonstration
+
             //assign a new thred to process the operation
             Thread thread = new Thread(() => {
                 //obtain the account lock
@@ -115,15 +80,22 @@
         }
 
         public int GetAccountBalanceUnlocked(Account account) {
+        //the multithreaded implementation of getting account balance without thread locks
+        //use ONLY for Data Race demonstration
             Nullable<int> balance = new int();
 
+			//creating a new thread to get the balance
             Thread thread = new Thread(() => {
+            	//15 second sleep for Data Race demonstration purposes
                 Thread.Sleep(15000);
+            	    
                 balance = account.Balance;
             });
 
+			//start the thread and .join() to wait for its completion before returning the value
             thread.Start();
             thread.Join();
+            
             if (!balance.HasValue) {
                 throw new Exception("Error getting the account balance");
             }
@@ -131,46 +103,4 @@
         }
     }
 
-    public class Account {
-        private int _balance;
-        private readonly int _number, _pin;
-        private Object _accountLock;
-
-        public Account(int number, int pin, int balance) {
-            if (!IsValidAccountNumber(number)) {
-                throw new ArgumentException(
-                    $"{number} is not a valid account number: must be 6 digits, must be positive");
-            }
-
-            if (!IsValidPin(pin)) {
-                throw new ArgumentException($"{pin} is not a valid pin: must be 4 digits, must be positive");
-            }
-
-            _number = number;
-            _pin = pin;
-            _balance = balance;
-            _accountLock = new Object();
-        }
-
-        public int Number => _number;
-
-        public Object AccountLock => _accountLock;
-
-        public int Balance {
-            get => _balance;
-            set => _balance = value;
-        }
-
-        public bool CheckPin(int pin) {
-            return _pin == pin;
-        }
-
-        private static bool IsValidAccountNumber(int accountNumber) {
-            return accountNumber.ToString().Length == 6 && accountNumber > 0;
-        }
-
-        private static bool IsValidPin(int pin) {
-            return pin.ToString().Length == 4 && pin > 0;
-        }
-    }
 }
