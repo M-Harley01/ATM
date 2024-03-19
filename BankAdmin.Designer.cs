@@ -2,6 +2,7 @@
 {
     partial class BankAdmin
     {
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -78,6 +79,7 @@
             this.addAccountBtn.TabIndex = 3;
             this.addAccountBtn.Text = "button1";
             this.addAccountBtn.UseVisualStyleBackColor = true;
+            this.addAccountBtn.Click += (sender, e) => this.addAccountBtn_Click(sender, e, this.accountNumberTXTBox.Text, this.pinTXTBox.Text, this.initBalanceTXTBox.Text);
             // 
             // listBox1
             // 

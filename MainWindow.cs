@@ -15,8 +15,10 @@ namespace assignment3
     public partial class MainWindow : Form
     {
         private bool _adminOpen = false;
+        private BankSystem _bankSystem = null;
         public MainWindow()
         {
+            _bankSystem = new BankSystem();
             InitializeComponent();
         }
 
@@ -32,7 +34,7 @@ namespace assignment3
             if (!_adminOpen)
             {
                 _adminOpen = true;
-                Thread thread = new Thread(() => { Application.Run(new BankAdmin()); });
+                Thread thread = new Thread(() => { Application.Run(new BankAdmin(_bankSystem)); });
                 thread.Start();
             }
         }

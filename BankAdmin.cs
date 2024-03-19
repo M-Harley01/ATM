@@ -12,9 +12,42 @@ namespace assignment3
 {
     public partial class BankAdmin : Form
     {
-        public BankAdmin()
+
+        private BankSystem _bankSystem;
+        public BankAdmin(BankSystem bankSystem)
         {
             InitializeComponent();
+            _bankSystem = bankSystem;
+        }
+
+        private void addAccountBtn_Click(object sender, EventArgs e, string number, string pin, string balance)
+        {
+            int acc_num, acc_pin, acc_balance;
+            try {
+                acc_num = Int32.Parse(number);
+                acc_pin = Int32.Parse(pin);
+                acc_balance = Int32.Parse(balance);
+            } catch (FormatException) {
+                string message = "the input must be numerical";
+                string title = "invalid input";
+                MessageBox.Show(message, title);
+                return;
+            }
+            try {
+                _bankSystem.AddAccount(acc_num, acc_pin, acc_balance);
+            } catch (BankSystem.AccountExistsException) {
+                string message = "an account with this numer already exists";
+                string title = "invalid input";
+                MessageBox.Show(message, title);
+                return;
+            } catch (Account.InvalidAccountArgsException exception)
+            {
+                string message = exception.Message;
+                string title = "invalid input";
+                MessageBox.Show(message, title);
+                return;
+            }
+            Console.WriteLine($"{number}, {pin}, {balance}");
         }
     }
 }

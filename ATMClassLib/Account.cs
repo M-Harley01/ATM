@@ -9,16 +9,15 @@ namespace assignment3 {
 
         public Account(int number, int pin, int balance) {
             if (!IsValidAccountNumber(number)) {
-                throw new ArgumentException(
-                    $"{number} is not a valid account number: must be 6 digits, must be positive");
+                throw new InvalidAccountArgsException($"{number} is not a valid account number: must be 6 digits, must be positive");
             }
 
             if (!IsValidPin(pin)) {
-                throw new ArgumentException($"{pin} is not a valid pin: must be 4 digits, must be positive");
+                throw new InvalidAccountArgsException($"{pin} is not a valid pin: must be 4 digits, must be positive");
             }
             
             if (!IsValidBalance(balance)) {
-                throw new ArgumentException($"balance must be positive");
+                throw new InvalidAccountArgsException($"balance must be positive");
             }
 
             _number = number;
@@ -50,6 +49,10 @@ namespace assignment3 {
         
         private static bool IsValidBalance(int balance) {
             return balance >= 0;
+        }
+
+        public class InvalidAccountArgsException : ArgumentException {
+            public InvalidAccountArgsException(string message) : base(message) {}
         }
     }
 }

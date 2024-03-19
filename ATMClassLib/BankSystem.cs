@@ -20,7 +20,7 @@ namespace assignment3 {
             }
             catch (ArgumentException e) {
                 Console.WriteLine($"The account with this number({account.Number}) already exists: {e.Message}");
-                throw;
+                throw new AccountExistsException();
             }
         }
 
@@ -30,7 +30,11 @@ namespace assignment3 {
                 Account account = new Account(accountNumber, pin, balance);
                 AddAccount(account);
             }
-            catch (ArgumentException e) {
+            catch (AccountExistsException)
+            {
+                throw;
+            }
+            catch (Account.InvalidAccountArgsException e) {
             //catch invalid account number, pin and initial balance
             //also catches account numbers that already exist
                 Console.WriteLine(e.Message);
@@ -53,6 +57,8 @@ namespace assignment3 {
         public ATMWindow DispatchATM() {
             return new ATMWindow();
         }
+
+        public class AccountExistsException : ArgumentException {}
     }
 
     
