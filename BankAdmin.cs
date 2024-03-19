@@ -17,6 +17,7 @@ namespace assignment3
         public BankAdmin(BankSystem bankSystem)
         {
             InitializeComponent();
+            Bind();
             _bankSystem = bankSystem;
         }
 
@@ -48,6 +49,21 @@ namespace assignment3
                 return;
             }
             Console.WriteLine($"{number}, {pin}, {balance}");
+            UpdateAccountList();
+        }
+
+        private void UpdateAccountList()
+        {
+            this.listBox1.Items.Clear();
+            foreach (Account acc in _bankSystem.GetAccounts())
+            {
+                this.listBox1.Items.Add(acc.toString());
+            }
+        }
+
+        private void initBalanceTXTBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

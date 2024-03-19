@@ -26,6 +26,15 @@ namespace assignment3 {
             _accountLock = new Object();
         }
 
+        public string toString()
+        {
+            string str = "";
+            str += $"account number = {_number}, ";
+            str += $"pin = {_pin}, ";
+            str += $"balance = {_balance}";
+            return str;
+        }
+
         public int Number => _number;
 
         public Object AccountLock => _accountLock;

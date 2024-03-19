@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 
@@ -52,6 +53,12 @@ namespace assignment3 {
                 Console.WriteLine($"[ERROR] Account number {accountNumber} not found: {e.Message}");
                 throw;
             }
+        }
+
+        public List<Account> GetAccounts()
+        {
+            List<Account> accounts = _accounts.Values.ToList();
+            return accounts;
         }
 
         public ATMWindow DispatchATM() {

@@ -34,7 +34,10 @@ namespace assignment3
             if (!_adminOpen)
             {
                 _adminOpen = true;
-                Thread thread = new Thread(() => { Application.Run(new BankAdmin(_bankSystem)); });
+                Thread thread = new Thread(() => {
+                    Application.Run(new BankAdmin(_bankSystem));
+                    _adminOpen = false;
+                });
                 thread.Start();
             }
         }
