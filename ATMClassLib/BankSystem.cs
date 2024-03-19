@@ -38,10 +38,10 @@ namespace assignment3 {
             }
         }
 
-        public Account? GetAccount(int accountNumber) {
+        public Account GetAccount(int accountNumber) {
         //returns an account with a given account number
             try {
-                return _accounts[accountNumber] as Account?;
+                return _accounts[accountNumber];
             }
             catch (KeyNotFoundException e) {
             //catches in case the given account number doesn't exist
@@ -50,8 +50,8 @@ namespace assignment3 {
             }
         }
 
-        public ATM DispatchATM() {
-            return new ATM();
+        public ATMWindow DispatchATM() {
+            return new ATMWindow();
         }
     }
 

@@ -2,7 +2,8 @@ using System;
 using System.Threading;
 
 namespace assignment3 {
-    public class ATM {
+    public class ATM
+    {
 
         public void Withdraw(Account account, int amount) {
         //the multithreaded implementation of withdrawal with thread locks

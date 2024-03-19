@@ -52,16 +52,34 @@
     <Compile Include="ATMClassLib\Account.cs" />
     <Compile Include="ATMClassLib\ATM.cs" />
     <Compile Include="ATMClassLib\BankSystem.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ATMWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ATMWindow.Designer.cs">
+      <DependentUpon>ATMWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BankAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BankAdmin.Designer.cs">
+      <DependentUpon>BankAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="BankAdmin.resx">
+      <DependentUpon>BankAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATMWindow.resx">
+      <DependentUpon>ATMWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
