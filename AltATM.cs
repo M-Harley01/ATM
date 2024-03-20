@@ -75,17 +75,16 @@ namespace assignment3
         {
             if (!Int32.TryParse(input.Text, out _))
             {
-                output.Text = "Unknown error, try again";
-                Thread.Sleep(2000);
+                input.Text = "Unknown error, try again";
             }
             try
             {
                 _curAcc = _bankSystem.GetAccount(Int32.Parse(input.Text));
                 _state = State.PIN;
+                InputClear();
             }catch (KeyNotFoundException ex)
             {
-                output.Text = "No account with this number exists";
-                getWaitThread().Join();
+                input.Text = "No account with this number exists";
             }
             return _prompts[_state];
         }
@@ -94,17 +93,16 @@ namespace assignment3
         {
             if (!Int32.TryParse(input.Text, out _))
             {
-                output.Text = "Unknown error, try again";
-                Thread.Sleep(2000);
+                input.Text = "Unknown error, try again";
             }
             if (_curAcc.CheckPin(Int32.Parse(input.Text)))
             {
                 _state = State.OPERATION_SELECT;
+                InputClear();
             }
             else
             {
-                output.Text = "Wrong pin try again";
-                Thread.Sleep(2000);
+                input.Text = "Wrong pin try again";
                 _state = State.ACCOUNT_NUMBER;
             }
             return _prompts[_state];
@@ -127,6 +125,10 @@ namespace assignment3
 
             private void NumberBtnClicked(object sender)
             {
+                if (!Int32.TryParse(target.Text, out _))
+                {
+                    target.Text = "";
+                }
                 InputButton sndr = sender as InputButton;
                 target.Text += sndr.Text;
             }
@@ -145,7 +147,6 @@ namespace assignment3
         private void Enter_Click(Func<String> func)
         {
             output.Text = func();
-            InputClear();
         }
 
         private Thread getWaitThread()
