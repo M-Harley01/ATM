@@ -14,11 +14,14 @@ namespace assignment3
 {
     public partial class MainWindow : Form
     {
+
+
         private bool _adminOpen = false;
         private BankSystem _bankSystem = null;
         public MainWindow()
         {
             _bankSystem = new BankSystem();
+            _bankSystem.AddAccount(333333, 3333, 1000);
             InitializeComponent();
         }
 
