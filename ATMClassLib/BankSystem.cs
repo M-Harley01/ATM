@@ -20,7 +20,7 @@ namespace assignment3 {
                 _accounts.Add(account.Number, account);
             }
             catch (ArgumentException e) {
-                Console.WriteLine($"The account with this number({account.Number}) already exists: {e.Message}");
+                System.Diagnostics.Debug.WriteLine($"The account with this number({account.Number}) already exists: {e.Message}");
                 throw new AccountExistsException();
             }
         }
@@ -36,9 +36,9 @@ namespace assignment3 {
                 throw;
             }
             catch (Account.InvalidAccountArgsException e) {
-            //catch invalid account number, pin and initial balance
-            //also catches account numbers that already exist
-                Console.WriteLine(e.Message);
+                //catch invalid account number, pin and initial balance
+                //also catches account numbers that already exist
+                System.Diagnostics.Debug.WriteLine(e.Message);
                 throw;
             }
         }
@@ -49,8 +49,8 @@ namespace assignment3 {
                 return _accounts[accountNumber];
             }
             catch (KeyNotFoundException e) {
-            //catches in case the given account number doesn't exist
-                Console.WriteLine($"[ERROR] Account number {accountNumber} not found: {e.Message}");
+                //catches in case the given account number doesn't exist
+                System.Diagnostics.Debug.WriteLine($"[ERROR] Account number {accountNumber} not found: {e.Message}");
                 throw;
             }
         }

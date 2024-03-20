@@ -15,7 +15,7 @@ namespace assignment3 {
 
                     //check if the account has sufficient funds
                     if (amount > account.Balance) {
-                        throw new ArgumentException(
+                        throw new InvalidATMArgsException(
                             $"Insufficient funds: balance = {account.Balance}, withdraw amount = {amount}");
                     }
 
@@ -24,7 +24,7 @@ namespace assignment3 {
 
                     //subtract the withdraw amount from the account balance
                     account.Balance -= amount;
-                    Console.WriteLine($"{amount} was successfully withdrawn from account number: {account.Number}");
+                    System.Diagnostics.Debug.WriteLine($"{amount} was successfully withdrawn from account number: {account.Number}");
                 }
             });
 
@@ -64,7 +64,7 @@ namespace assignment3 {
 
                 //check if the account has sufficient funds
                 if (amount > account.Balance) {
-                    throw new ArgumentException(
+                    throw new InvalidATMArgsException(
                         $"Insufficient funds: balance = {account.Balance}, withdraw amount = {amount}");
                 }
 
@@ -73,7 +73,7 @@ namespace assignment3 {
 
                 //subtract the withdraw amount from the account balance
                 account.Balance -= amount;
-                Console.WriteLine($"{amount} was successfully withdrawn from account number: {account.Number}");
+                System.Diagnostics.Debug.WriteLine($"{amount} was successfully withdrawn from account number: {account.Number}");
             });
 
             //start the thread
@@ -102,6 +102,10 @@ namespace assignment3 {
             }
             return balance.Value;
         }
-    }
 
+        public class InvalidATMArgsException : ArgumentException
+        {
+            public InvalidATMArgsException(string message) : base(message) { }
+        }
+    }
 }
