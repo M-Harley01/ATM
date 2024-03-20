@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltATM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AltATM.Designer.cs">
+      <DependentUpon>AltATM.cs</DependentUpon>
+    </Compile>
     <Compile Include="ATMClassLib\Account.cs" />
     <Compile Include="ATMClassLib\ATM.cs" />
     <Compile Include="ATMClassLib\BankSystem.cs" />
@@ -73,6 +79,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AltATM.resx">
+      <DependentUpon>AltATM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BankAdmin.resx">
       <DependentUpon>BankAdmin.cs</DependentUpon>
     </EmbeddedResource>
