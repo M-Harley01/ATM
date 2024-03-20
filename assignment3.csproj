@@ -65,7 +65,6 @@
     <Compile Include="BankAdmin.Designer.cs">
       <DependentUpon>BankAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Designer.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

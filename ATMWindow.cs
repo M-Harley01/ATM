@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
@@ -18,19 +19,21 @@ namespace assignment3
         Button[,] keyPad = new Button[4, 4];
 
         private BankSystem _bankSystem;
-        private ATM _atm = new ATM();
+        private ATM _atm;
         private Boolean runLocked = false;
         private Account _currentAccount;
 
         public class ATMState
         {
             private int _stage;
+
             private string[] _textStages = {
                 "Enter Account Number",
                 "Enter Your Pin",
                 "(Withdrawls take 10 seconds to process)\nCheck Balance [0]\nWithdraw [1]\nExit [2]\n",
                 "[0] 10\n[1] 50\n[2] 500"
             };
+
             private Label _atmScreen;
 
             public ATMState(Label atmScreen)
@@ -90,6 +93,7 @@ namespace assignment3
             }
 
             _bankSystem = bankSystem;
+            _atm = _bankSystem.DispatchATM();
 
             atmScreen.Location = new Point(250, 100);
             atmScreen.BackColor = Color.Green;
@@ -156,7 +160,7 @@ namespace assignment3
                             _atmStage.NextStage();
                         }
                         catch
-                        {
+                        {   
                             _atmStage.ShowError();
                             userInput.Text = "";
                         }
@@ -239,28 +243,18 @@ namespace assignment3
 
                                     try
                                     {
-                                        if (_currentAccount.Balance >= withdrawAmount)
+                                    Thread thread;
+                                        if (runLocked)
                                         {
-                                            if (runLocked)
-                                            {
-                                                _atm.Withdraw(_currentAccount, withdrawAmount);
-                                            } else
-                                            {
-                                                _atm.WithdrawUnlocked(_currentAccount, withdrawAmount);
-                                            }
-
-                                            _atmStage.SetStage(2);
-                                            _atmStage.SetStageText();
-                                        }
-                                        else
+                                            thread = _atm.Withdraw(_currentAccount, withdrawAmount);
+                                        } else
                                         {
-                                            _atmStage.SetStageText("You don't have enough balance");
-
-                                            Thread.Sleep(2000);
-
-                                            _atmStage.SetStage(2);
-                                            _atmStage.SetStageText();
+                                            thread = _atm.WithdrawUnlocked(_currentAccount, withdrawAmount);
                                         }
+
+                                        thread.Join();
+                                        _atmStage.SetStage(2);
+                                        _atmStage.SetStageText();
                                     }
                                     catch (ATM.InvalidATMArgsException ex)
                                     {
@@ -278,29 +272,17 @@ namespace assignment3
 
                                 try
                                 {
-                                    if (_currentAccount.Balance >= withdrawAmount)
+                                    if (runLocked)
                                     {
-                                        if (runLocked)
-                                        {
-                                            _atm.Withdraw(_currentAccount, withdrawAmount);
-                                        }
-                                        else
-                                        {
-                                            _atm.WithdrawUnlocked(_currentAccount, withdrawAmount);
-                                        }
-
-                                        _atmStage.SetStage(2);
-                                        _atmStage.SetStageText();
+                                        _atm.Withdraw(_currentAccount, withdrawAmount).Join();
                                     }
                                     else
                                     {
-                                        _atmStage.SetStageText("You don't have enough balance");
-
-                                        Thread.Sleep(2000);
-
-                                        _atmStage.SetStage(2);
-                                        _atmStage.SetStageText();
+                                        _atm.WithdrawUnlocked(_currentAccount, withdrawAmount).Join();
                                     }
+
+                                    _atmStage.SetStage(2);
+                                    _atmStage.SetStageText();
                                 }
                                 catch (ATM.InvalidATMArgsException ex)
                                 {
@@ -317,28 +299,17 @@ namespace assignment3
                                 withdrawAmount = 500;
 
                                 try {
-                                    if (_currentAccount.Balance >= withdrawAmount) {
-                                        if (runLocked)
-                                        {
-                                            _atm.Withdraw(_currentAccount, withdrawAmount);
-                                        }
-                                        else
-                                        {
-                                            _atm.WithdrawUnlocked(_currentAccount, withdrawAmount);
-                                        }
-
-                                        _atmStage.SetStage(2);
-                                        _atmStage.SetStageText();
+                                    if (runLocked)
+                                    {
+                                        _atm.Withdraw(_currentAccount, withdrawAmount).Join();
                                     }
                                     else
                                     {
-                                        _atmStage.SetStageText("You don't have enough balance");
-
-                                        Thread.Sleep(2000);
-
-                                        _atmStage.SetStage(2);
-                                        _atmStage.SetStageText();
+                                        _atm.WithdrawUnlocked(_currentAccount, withdrawAmount).Join();
                                     }
+
+                                    _atmStage.SetStage(2);
+                                    _atmStage.SetStageText();
                                 }
                                 catch (ATM.InvalidATMArgsException ex)
                                 {
@@ -387,6 +358,14 @@ namespace assignment3
         private void ATMWindow_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ProcessEnter()
+        {
+            if (userInput.Text == "")
+            {
+
+            }
         }
     }
 }

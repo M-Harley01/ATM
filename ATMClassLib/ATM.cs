@@ -5,7 +5,7 @@ namespace assignment3 {
     public class ATM
     {
 
-        public void Withdraw(Account account, int amount) {
+        public Thread Withdraw(Account account, int amount) {
         //the multithreaded implementation of withdrawal with thread locks
 
             //assign a new thred to process the operation
@@ -30,6 +30,7 @@ namespace assignment3 {
 
             //start the thread
             thread.Start();
+            return thread;
         }
 
         public int GetAccountBalance(Account account) {
@@ -54,7 +55,7 @@ namespace assignment3 {
             return balance.Value;
         }
 
-        public void WithdrawUnlocked(Account account, int amount) {
+        public Thread WithdrawUnlocked(Account account, int amount) {
         //the multithreaded implementation of withdraing without thread locks
         //use ONLY for Data Race demonstration
 
@@ -78,6 +79,7 @@ namespace assignment3 {
 
             //start the thread
             thread.Start();
+            return thread;
         }
 
         public int GetAccountBalanceUnlocked(Account account) {
@@ -88,7 +90,6 @@ namespace assignment3 {
 			//creating a new thread to get the balance
             Thread thread = new Thread(() => {
             	//15 second sleep for Data Race demonstration purposes
-                Thread.Sleep(15000);
             	    
                 balance = account.Balance;
             });

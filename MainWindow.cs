@@ -27,7 +27,7 @@ namespace assignment3
 
         private void newATMBtn_Click(object sender, EventArgs e)
         {
-            Thread thread = new Thread(() => { Application.Run(_bankSystem.DispatchATM()); });
+            Thread thread = new Thread(() => { Application.Run(new ATMWindow(_bankSystem)); });
             thread.Start();
 
         }
