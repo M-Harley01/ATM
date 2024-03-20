@@ -62,7 +62,7 @@ namespace assignment3 {
         }
 
         public ATMWindow DispatchATM() {
-            return new ATMWindow();
+            return new ATMWindow(this);
         }
 
         public class AccountExistsException : ArgumentException {}
