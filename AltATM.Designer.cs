@@ -30,12 +30,12 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.inputPadTable = new System.Windows.Forms.TableLayoutPanel();
-            this.Screen = new System.Windows.Forms.TableLayoutPanel();
-            this.output = new System.Windows.Forms.Label();
-            this.input = new System.Windows.Forms.Label();
             this.Del = new System.Windows.Forms.Button();
             this.Clear = new System.Windows.Forms.Button();
             this.Enter = new System.Windows.Forms.Button();
+            this.Screen = new System.Windows.Forms.TableLayoutPanel();
+            this.input = new System.Windows.Forms.Label();
+            this.output = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.inputPadTable.SuspendLayout();
             this.Screen.SuspendLayout();
@@ -81,43 +81,6 @@
             this.inputPadTable.Size = new System.Drawing.Size(220, 220);
             this.inputPadTable.TabIndex = 0;
             // 
-            // Screen
-            // 
-            this.Screen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Screen.BackColor = System.Drawing.Color.OliveDrab;
-            this.Screen.ColumnCount = 1;
-            this.Screen.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Screen.Controls.Add(this.input, 0, 1);
-            this.Screen.Controls.Add(this.output, 0, 0);
-            this.Screen.Location = new System.Drawing.Point(74, 43);
-            this.Screen.Margin = new System.Windows.Forms.Padding(0);
-            this.Screen.Name = "Screen";
-            this.Screen.RowCount = 2;
-            this.Screen.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Screen.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Screen.Size = new System.Drawing.Size(200, 100);
-            this.Screen.TabIndex = 1;
-            // 
-            // output
-            // 
-            this.output.AutoSize = true;
-            this.output.Location = new System.Drawing.Point(3, 3);
-            this.output.Margin = new System.Windows.Forms.Padding(3);
-            this.output.Name = "output";
-            this.output.Size = new System.Drawing.Size(37, 13);
-            this.output.TabIndex = 0;
-            this.output.Text = "output";
-            // 
-            // input
-            // 
-            this.input.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.input.AutoSize = true;
-            this.input.Location = new System.Drawing.Point(3, 84);
-            this.input.Margin = new System.Windows.Forms.Padding(3);
-            this.input.Name = "input";
-            this.input.Size = new System.Drawing.Size(0, 13);
-            this.input.TabIndex = 1;
-            // 
             // Del
             // 
             this.Del.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -147,6 +110,43 @@
             this.Enter.TabIndex = 2;
             this.Enter.Text = "Enter";
             this.Enter.UseVisualStyleBackColor = true;
+            // 
+            // Screen
+            // 
+            this.Screen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Screen.BackColor = System.Drawing.Color.OliveDrab;
+            this.Screen.ColumnCount = 1;
+            this.Screen.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.Screen.Controls.Add(this.input, 0, 1);
+            this.Screen.Controls.Add(this.output, 0, 0);
+            this.Screen.Location = new System.Drawing.Point(74, 43);
+            this.Screen.Margin = new System.Windows.Forms.Padding(0);
+            this.Screen.Name = "Screen";
+            this.Screen.RowCount = 2;
+            this.Screen.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 74F));
+            this.Screen.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.Screen.Size = new System.Drawing.Size(200, 100);
+            this.Screen.TabIndex = 1;
+            // 
+            // input
+            // 
+            this.input.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.input.AutoSize = true;
+            this.input.Location = new System.Drawing.Point(3, 84);
+            this.input.Margin = new System.Windows.Forms.Padding(3);
+            this.input.Name = "input";
+            this.input.Size = new System.Drawing.Size(0, 13);
+            this.input.TabIndex = 1;
+            // 
+            // output
+            // 
+            this.output.AutoSize = true;
+            this.output.Location = new System.Drawing.Point(3, 3);
+            this.output.Margin = new System.Windows.Forms.Padding(3);
+            this.output.Name = "output";
+            this.output.Size = new System.Drawing.Size(37, 13);
+            this.output.TabIndex = 0;
+            this.output.Text = "output";
             // 
             // AltATM
             // 

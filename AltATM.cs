@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,11 @@ namespace assignment3
         private State _state;
         private Dictionary<State, String> _prompts = new Dictionary<State, string>()
         {
-            {State.ACCOUNT_NUMBER, "Please enter your account number." }
+            {State.ACCOUNT_NUMBER, "Please enter your account number."},
+            {State.PIN, "Please enter your pin."},
+            {State.OPERATION_SELECT, "Enter an option number\n[1]Withdraw\n[2]Check Balance\n[3]Exit" }
         };
+        private Dictionary<State, Func<String>> _funcDict;
 
         enum State
         {
@@ -40,7 +44,13 @@ namespace assignment3
             _numberButtons = new List<InputButton>();
             InitializeComponent();
             BuildUI();
-            _state = State.ACCOUNT_NUMBER; 
+            _state = State.ACCOUNT_NUMBER;
+            _funcDict = new Dictionary<State, Func<String>>()
+            {
+                {State.ACCOUNT_NUMBER, ProcessAccountNumber},
+                {State.PIN, ProcessPin},
+            };
+            output.Text = _prompts[_state];
         }
 
         private void BuildUI()
@@ -58,6 +68,7 @@ namespace assignment3
             this.inputPadTable.Controls.Add(new InputButton("0", input), 1, 3);
             Del.Click += (sender, e) => Del_Click();
             Clear.Click += (sender, e) => InputClear();
+            Enter.Click += (sender, e) => Enter_Click(_funcDict[_state]);
         }
 
         private string ProcessAccountNumber()
@@ -65,7 +76,6 @@ namespace assignment3
             if (!Int32.TryParse(input.Text, out _))
             {
                 output.Text = "Unknown error, try again";
-                InputClear();
                 Thread.Sleep(2000);
             }
             try
@@ -75,13 +85,30 @@ namespace assignment3
             }catch (KeyNotFoundException ex)
             {
                 output.Text = "No account with this number exists";
-                InputClear();
-                Thread.Sleep(2000);
+                getWaitThread().Join();
             }
             return _prompts[_state];
         }
 
-        
+        private string ProcessPin()
+        {
+            if (!Int32.TryParse(input.Text, out _))
+            {
+                output.Text = "Unknown error, try again";
+                Thread.Sleep(2000);
+            }
+            if (_curAcc.CheckPin(Int32.Parse(input.Text)))
+            {
+                _state = State.OPERATION_SELECT;
+            }
+            else
+            {
+                output.Text = "Wrong pin try again";
+                Thread.Sleep(2000);
+                _state = State.ACCOUNT_NUMBER;
+            }
+            return _prompts[_state];
+        }
 
         private class InputButton: Button
         {
@@ -115,9 +142,17 @@ namespace assignment3
             input.Text = "";
         }
 
-        private void Enter_Click(object sender, Func<String> func)
+        private void Enter_Click(Func<String> func)
         {
-            input.Text = func();
+            output.Text = func();
+            InputClear();
+        }
+
+        private Thread getWaitThread()
+        {
+            Thread thread = new Thread(() => { Thread.Sleep(2000); });
+            thread.Start();
+            return thread;
         }
     }
 }
