@@ -127,7 +127,6 @@
             this.Del.TabIndex = 0;
             this.Del.Text = "Del";
             this.Del.UseVisualStyleBackColor = true;
-            this.Del.Click += new System.EventHandler(this.Del_Click);
             // 
             // Clear
             // 
@@ -138,7 +137,6 @@
             this.Clear.TabIndex = 1;
             this.Clear.Text = "Clear";
             this.Clear.UseVisualStyleBackColor = true;
-            this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
             // Enter
             // 
