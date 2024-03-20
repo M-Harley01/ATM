@@ -60,10 +60,5 @@ namespace assignment3
                 this.listBox1.Items.Add(acc.toString());
             }
         }
-
-        private void initBalanceTXTBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

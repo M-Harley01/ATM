@@ -37,23 +37,23 @@
             // openAdminBtn
             // 
             this.openAdminBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.openAdminBtn.Location = new System.Drawing.Point(294, 95);
+            this.openAdminBtn.Location = new System.Drawing.Point(294, 84);
             this.openAdminBtn.Name = "openAdminBtn";
-            this.openAdminBtn.Size = new System.Drawing.Size(187, 23);
+            this.openAdminBtn.Size = new System.Drawing.Size(187, 44);
             this.openAdminBtn.TabIndex = 0;
             this.openAdminBtn.Text = "open Admin window";
-            this.openAdminBtn.UseVisualStyleBackColor = true;
+            this.openAdminBtn.UseVisualStyleBackColor = false;
             this.openAdminBtn.Click += new System.EventHandler(this.openAdminBtn_Click);
             // 
             // newATMBtn
             // 
             this.newATMBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.newATMBtn.Location = new System.Drawing.Point(322, 308);
+            this.newATMBtn.Location = new System.Drawing.Point(294, 297);
             this.newATMBtn.Name = "newATMBtn";
-            this.newATMBtn.Size = new System.Drawing.Size(131, 23);
-            this.newATMBtn.TabIndex = 1;
-            this.newATMBtn.Text = "add ATM Window";
-            this.newATMBtn.UseVisualStyleBackColor = true;
+            this.newATMBtn.Size = new System.Drawing.Size(187, 44);
+            this.newATMBtn.TabIndex = 2;
+            this.newATMBtn.Text = "new ATM window";
+            this.newATMBtn.UseVisualStyleBackColor = false;
             this.newATMBtn.Click += new System.EventHandler(this.newATMBtn_Click);
             // 
             // tableLayoutPanel1
@@ -61,8 +61,8 @@
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.newATMBtn, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.openAdminBtn, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.newATMBtn, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;

@@ -64,25 +64,23 @@
             this.initBalanceTXTBox.Size = new System.Drawing.Size(282, 20);
             this.initBalanceTXTBox.TabIndex = 2;
             this.initBalanceTXTBox.Text = "account balance";
-            this.initBalanceTXTBox.TextChanged += new System.EventHandler(this.initBalanceTXTBox_TextChanged);
             // 
             // addAccountBtn
             // 
             this.addAccountBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.addAccountBtn.Location = new System.Drawing.Point(148, 77);
+            this.addAccountBtn.Location = new System.Drawing.Point(148, 76);
             this.addAccountBtn.Name = "addAccountBtn";
-            this.addAccountBtn.Size = new System.Drawing.Size(147, 23);
+            this.addAccountBtn.Size = new System.Drawing.Size(147, 38);
             this.addAccountBtn.TabIndex = 3;
             this.addAccountBtn.Text = "add account";
-            this.addAccountBtn.UseVisualStyleBackColor = true;
             // 
             // listBox1
             // 
             this.listBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 109);
+            this.listBox1.Location = new System.Drawing.Point(3, 121);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(438, 498);
+            this.listBox1.Size = new System.Drawing.Size(438, 485);
             this.listBox1.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -91,11 +89,11 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.addAccountBtn, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.initBalanceTXTBox, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.pinTXTBox, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.accountNumberTXTBox, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.addAccountBtn, 0, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(100, 100);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -103,8 +101,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.58139F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.41861F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 505F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 493F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(444, 611);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -115,7 +113,7 @@
             this.ClientSize = new System.Drawing.Size(459, 635);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "BankAdmin";
-            this.Text = "Form2";
+            this.Text = "Admin";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
