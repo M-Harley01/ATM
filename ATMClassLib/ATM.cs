@@ -30,9 +30,8 @@ namespace assignment3 {
             });
 
             //start the thread
-            task.Start();
             try {
-                task.Wait();
+                task.Start();
             }
             catch (InvalidATMArgsException e) {
                 throw new InvalidCastException(
@@ -88,9 +87,8 @@ namespace assignment3 {
             
             
             //start the thread
-            task.Start();
             try {
-                task.Wait();
+                task.Start();
             }
             catch (InvalidATMArgsException e) {
                 throw new InvalidATMArgsException(
