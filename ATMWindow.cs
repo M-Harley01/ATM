@@ -95,14 +95,18 @@ namespace assignment3
             _bankSystem = bankSystem;
             _atm = _bankSystem.DispatchATM();
 
-            atmScreen.Location = new Point(250, 100);
+            atmScreen.Location = new Point(210, 100);
             atmScreen.BackColor = Color.Green;
-            atmScreen.Width = 250;
+            atmScreen.FlatStyle = FlatStyle.Flat;
+            atmScreen.BorderStyle = BorderStyle.FixedSingle;
+    
+            atmScreen.Width = 200;
             atmScreen.Height = 100;
+            
 
-            userInput.Location = new Point(250, 180);
+            userInput.Location = new Point(210, 180);
             userInput.BackColor = Color.Green;
-            userInput.Width = 250;
+            userInput.Width = 200;
             userInput.Height = 20;
 
             this.Controls.Add(userInput);
@@ -112,7 +116,7 @@ namespace assignment3
                 { "1", "2", "3", "Cancel" },
                 { "4", "5", "6", "Clear" },
                 { "7", "8", "9", "Enter" },
-                { "*", "0", "#", "D" }
+                { "*", "0", "#", " " }
             };
 
             for (int i = 0; i < keyPad.GetLength(0); i++)
@@ -121,15 +125,32 @@ namespace assignment3
                 {
                     keyPad[i, j] = new Button();
                     keyPad[i, j].FlatStyle = FlatStyle.Flat;
-                    keyPad[i, j].FlatAppearance.BorderColor = Color.Gray;
-                    keyPad[i, j].SetBounds(275 + (55 * i), 250 + (55 * j), 50, 50);
+                    keyPad[i, j].FlatAppearance.BorderColor = Color.Black;
+                    keyPad[i, j].FlatAppearance.BorderSize = 2;
+                    keyPad[i, j].SetBounds(175 + (70 * i), 215 + (55 * j), 65, 50);
                     keyPad[i, j].BackColor = Color.Gray;
                     keyPad[i, j].ForeColor = Color.Black;
                     keyPad[i, j].Text = buttonLabels[j, i];
+
+                    if (keyPad[i, j].Text == "Cancel")
+                    {
+                        keyPad[i, j].BackColor = Color.Red;
+                    }
+                    else if (keyPad[i, j].Text == "Clear")
+                    {
+                        keyPad[i, j].BackColor = Color.Yellow; 
+                    }
+                    else if (keyPad[i, j].Text == "Enter")
+                    {
+                        keyPad[i, j].BackColor = Color.Green;
+                    }
+
                     keyPad[i, j].Click += new EventHandler(this.KeyPadButtonClick);
                     this.Controls.Add(keyPad[i, j]);
                 }
             }
+
+           
 
             _atmStage = new ATMState(atmScreen);
             _atmStage.SetStage(0);

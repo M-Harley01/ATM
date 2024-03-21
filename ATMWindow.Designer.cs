@@ -32,7 +32,8 @@
             // 
             // ATMWindow
             // 
-            this.ClientSize = new System.Drawing.Size(968, 618);
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ClientSize = new System.Drawing.Size(579, 603);
             this.Name = "ATMWindow";
             this.Load += new System.EventHandler(this.ATMWindow_Load);
             this.ResumeLayout(false);
