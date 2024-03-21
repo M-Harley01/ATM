@@ -1,15 +1,16 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace assignment3 {
     public class ATM
     {
 
-        public Thread Withdraw(Account account, int amount) {
+        public Task Withdraw(Account account, int amount) {
         //the multithreaded implementation of withdrawal with thread locks
 
             //assign a new thred to process the operation
-            Thread thread = new Thread(() => {
+            Task task = new Task(() => {
                 //obtain the account lock
                 lock (account.AccountLock) {
 
@@ -29,8 +30,15 @@ namespace assignment3 {
             });
 
             //start the thread
-            thread.Start();
-            return thread;
+            task.Start();
+            try {
+                task.Wait();
+            }
+            catch (InvalidATMArgsException e) {
+                throw new InvalidCastException(
+                    $"Insufficient funds: balance = {account.Balance}, withdraw amount = {amount}");
+            }
+            return task;
         }
 
         public int GetAccountBalance(Account account) {
@@ -55,12 +63,12 @@ namespace assignment3 {
             return balance.Value;
         }
 
-        public Thread WithdrawUnlocked(Account account, int amount) {
+        public Task WithdrawUnlocked(Account account, int amount) {
         //the multithreaded implementation of withdraing without thread locks
         //use ONLY for Data Race demonstration
 
             //assign a new thred to process the operation
-            Thread thread = new Thread(() => {
+            Task task = new Task(() => {
                 //obtain the account lock
 
                 //check if the account has sufficient funds
@@ -77,9 +85,18 @@ namespace assignment3 {
                 System.Diagnostics.Debug.WriteLine($"{amount} was successfully withdrawn from account number: {account.Number}");
             });
 
+            
+            
             //start the thread
-            thread.Start();
-            return thread;
+            task.Start();
+            try {
+                task.Wait();
+            }
+            catch (InvalidATMArgsException e) {
+                throw new InvalidATMArgsException(
+                    $"Insufficient funds: balance = {account.Balance}, withdraw amount = {amount}");
+            }
+            return task;
         }
 
         public int GetAccountBalanceUnlocked(Account account) {

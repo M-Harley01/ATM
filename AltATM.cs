@@ -155,15 +155,15 @@ namespace assignment3 {
 
             try {
                 if (Unlocked) {
-                    _atm.WithdrawUnlocked(_curAcc, amount).Join();
+                    _atm.WithdrawUnlocked(_curAcc, amount).Wait();
                 }
                 else {
-                    _atm.Withdraw(_curAcc, amount).Join();
+                    _atm.Withdraw(_curAcc, amount).Wait();
                 }
 
                 input.Text = $"Successfully withdrew {amount}";
             }
-            catch (Exception ex) {
+            catch (ATM.InvalidATMArgsException ex) {
                 input.Text = ex.Message;
             }
 
