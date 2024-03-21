@@ -155,10 +155,10 @@ namespace assignment3 {
 
             try {
                 if (Unlocked) {
-                    _atm.WithdrawUnlocked(_curAcc, amount).Wait();
+                    _atm.WithdrawUnlocked(_curAcc, amount);
                 }
                 else {
-                    _atm.Withdraw(_curAcc, amount).Wait();
+                    _atm.Withdraw(_curAcc, amount);
                 }
 
                 input.Text = $"Successfully withdrew {amount}";

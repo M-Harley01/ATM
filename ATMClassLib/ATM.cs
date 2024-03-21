@@ -32,6 +32,7 @@ namespace assignment3 {
             //start the thread
             try {
                 task.Start();
+                task.Wait();
             }
             catch (InvalidATMArgsException e) {
                 throw new InvalidCastException(
@@ -89,6 +90,7 @@ namespace assignment3 {
             //start the thread
             try {
                 task.Start();
+                task.Wait();
             }
             catch (InvalidATMArgsException e) {
                 throw new InvalidATMArgsException(
