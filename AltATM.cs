@@ -110,7 +110,7 @@ namespace assignment3 {
 
         private string ProcessOperation() {
             if (!int.TryParse(input.Text, out _)) input.Text = "Unknown error, try again";
-            InputClear();
+            
             switch (int.Parse(input.Text)) {
                 case 1:
                     _state = State.WITHDRAW;
