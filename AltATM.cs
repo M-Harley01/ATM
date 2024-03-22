@@ -33,7 +33,7 @@ namespace assignment3 {
 
         public AltATM(BankSystem bankSystem) {
             
-            DialogResult dialogResult = MessageBox.Show("Do you want to run this unlocked?", "Prompt", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Do you want to run this unsafe?", "Prompt", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 Unlocked = true;
@@ -117,14 +117,17 @@ namespace assignment3 {
                     break;
                 case 2:
                     _state = State.BALANCE_CHECK;
+                    InputClear();
                     return _operations[_state]();
                 case 3:
                     _state = State.ACCOUNT_NUMBER;
                     break;
                 default:
                     input.Text = "Invalid option, try again";
-                    break;
+                    return _prompts[_state];
             }
+
+            InputClear();
 
             return _prompts[_state];
         }
@@ -153,6 +156,8 @@ namespace assignment3 {
                     return _prompts[_state];
             }
 
+            InputClear();
+
             try {
                 if (Unlocked) {
                     _atm.WithdrawUnlocked(_curAcc, amount);
@@ -160,7 +165,6 @@ namespace assignment3 {
                 else {
                     _atm.Withdraw(_curAcc, amount);
                 }
-
                 input.Text = $"Successfully withdrew {amount}";
             }
             catch (ATM.InvalidATMArgsException ex) {

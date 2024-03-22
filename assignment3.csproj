@@ -59,12 +59,6 @@
     <Compile Include="ATMClassLib\Account.cs" />
     <Compile Include="ATMClassLib\ATM.cs" />
     <Compile Include="ATMClassLib\BankSystem.cs" />
-    <Compile Include="ATMWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ATMWindow.Designer.cs">
-      <DependentUpon>ATMWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="BankAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,9 +78,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BankAdmin.resx">
       <DependentUpon>BankAdmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ATMWindow.resx">
-      <DependentUpon>ATMWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
