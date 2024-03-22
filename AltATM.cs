@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace assignment3 {
+    //this class is responsible for the ATM window gui
     public partial class AltATM : Form {
         private BankSystem _bankSystem;
         private ATM _atm;
@@ -13,6 +14,7 @@ namespace assignment3 {
         private List<InputButton> _numberButtons;
         private State _state;
 
+        //containes different static prompts for different states of the ATM
         private Dictionary<State, string> _prompts = new Dictionary<State, string>() {
             { State.ACCOUNT_NUMBER, "Please enter your account number." },
             { State.PIN, "Please enter your pin." },
@@ -20,7 +22,9 @@ namespace assignment3 {
             { State.WITHDRAW, "Enter the amount you want to withdraw\n[1]10\n[2]50\n[3]500" }
         };
 
+        //lambdas for operations with variable output
         private Dictionary<State, Func<string>> _operations;
+        //contains different functions the ATM runs for different states
         private Dictionary<State, Func<string>> _funcDict;
 
         private enum State {
@@ -33,6 +37,7 @@ namespace assignment3 {
 
         public AltATM(BankSystem bankSystem) {
             
+            //select locked or unlocked mode in a dialog window
             DialogResult dialogResult = MessageBox.Show("Do you want to run this unsafe?", "Prompt", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
@@ -65,6 +70,7 @@ namespace assignment3 {
             output.Text = _prompts[_state];
         }
 
+        //build the PIN pad for the atm and positions the number buttons in a grid
         private void BuildUI() {
             for (var i = 0; i < 3; i++)
             for (var j = 0; j < 3; j++) {
@@ -75,12 +81,14 @@ namespace assignment3 {
             }
 
             inputPadTable.Controls.Add(new InputButton("0", input), 1, 3);
+            //bind the buttons to their respective functions
             Del.Click += (sender, e) => Del_Click();
             Clear.Click += (sender, e) => InputClear();
             Enter.Click += (sender, e) => Enter_Click(_funcDict[_state]);
         }
 
         private string ProcessAccountNumber() {
+            //input for the account number is parsed and checked if it is a valid account number
             if (!int.TryParse(input.Text, out _)) input.Text = "Unknown error, try again";
             try {
                 _curAcc = _bankSystem.GetAccount(int.Parse(input.Text));
@@ -95,6 +103,7 @@ namespace assignment3 {
         }
 
         private string ProcessPin() {
+            //pin is parsed and checked if it is the right pin for the account
             if (!int.TryParse(input.Text, out _)) input.Text = "Unknown error, try again";
             if (_curAcc.CheckPin(int.Parse(input.Text))) {
                 _state = State.OPERATION_SELECT;
@@ -109,6 +118,7 @@ namespace assignment3 {
         }
 
         private string ProcessOperation() {
+            //user choice of the operation is parsed and checked if it is a valid option
             if (!int.TryParse(input.Text, out _)) input.Text = "Unknown error, try again";
             
             switch (int.Parse(input.Text)) {
@@ -133,11 +143,14 @@ namespace assignment3 {
         }
 
         private string ProcessCheckBalance() {
+            //gets a lambda for that returns a string with the account balance and returns its result
             _state = State.OPERATION_SELECT;
             return _prompts[_state];
         }
 
         private string ProcessWithdraw() {
+            //parses the choice of the amount to withdraw and checks if it is a valid option
+            //then runs the withdraw function depending on the mode (unlocked/locked) of the ATM
             if (!int.TryParse(input.Text, out _)) input.Text = "Unknown error, try again";
 
             int amount;
@@ -176,6 +189,7 @@ namespace assignment3 {
         }
 
         private class InputButton : Button {
+            //custom button class for number buttons of the atm
             private Label target;
 
             public InputButton(string name, Label target) {
@@ -197,6 +211,7 @@ namespace assignment3 {
             }
         }
 
+        //the three functions below are bound to theirs respective buttons
         private void Del_Click() {
             input.Text = input.Text.Remove(input.Text.Length - 1, 1);
         }
